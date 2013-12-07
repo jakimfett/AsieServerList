@@ -20,7 +20,7 @@ if (isset($_POST['url']) OR isset($_GET['debug'])) {
     
     // Retrieve the server data from the POST'ed URL
     $server_info = api::getServerJSON($_POST['url']);
-        
+    
     // If $server_info isn't false, attempt to add or update the server in the database
     if ($server_info){
         

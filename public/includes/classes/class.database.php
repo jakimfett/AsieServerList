@@ -51,4 +51,114 @@ class database {
             return FALSE;
         }
     }
+    
+    /**
+     * 
+     * @param $server_id    INT unique server key
+     * @return boolean
+     */
+    public function removeAddonsFromServer($server_id) {
+        // Build the query
+        $query = "DELETE FROM `server_addon` WHERE `server_id`='{$server_id}'";
+        
+        // Run the query
+        $result = $this->databaseConnection->query($query);
+        
+        // Return the result
+        if ($result){
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    /**
+     * @description Check to see if an addon is in the database
+     * @param $addon_id     string
+     * @return boolean
+     */
+    public function addonInDatabase($addon_id, $addon_version){
+        // Build the query
+        $query = "SELECT `id`, `version` FROM `addon` WHERE `addon_id`='{$addon_id}' AND `version`='{$addon_version}'";
+        
+        // Run the query
+        $result = $this->databaseConnection->query($query);
+        
+        // Return the result
+        if ($result->num_rows){
+            return $result->fetch_assoc();
+        } else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * 
+     * @param $server_id    A server ID
+     * @param $server_ip    A server IP or URL
+     * @return MySQL Object or FALSE
+     */
+    public function serverInDatabase($server_id, $server_ip) {
+        // Instantiate the database object
+        // Build the query
+        $query = "SELECT `id`, `ip`, `hash` FROM `server` ";
+        $query .= "WHERE `server_id`='{$server_id}' AND `ip`='{$server_ip}'";
+
+        // Process the query
+        $result = $this->databaseConnection->query($query);
+
+        // Determine if the server is in the database
+        if ($result->num_rows > 0) {
+            return $result;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    /**
+     * 
+     * @param $addon    Object containing addon information
+     * @return boolean
+     */
+    public function addAddonToDatabase($addon){
+        // Build the query
+        $query = "INSERT INTO `addon` ";
+        $query .="(`addon_id`, `type`, `name`, `version`, `description`, `authors`, `url`) ";
+        $query .="VALUES ";
+        $query .="('{$addon->id}', '{$addon->type}', '{$addon->name}', '{$addon->version}'";
+        $query .=", '{$addon->description}', '".serialize($addon->authors)."', '{$addon->url}' )";
+        
+        // Run the query
+        $result = $this->databaseConnection->query($query);
+        
+        // Return the result
+        if ($result){
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    public function linkServerWithAddon($addon_id, $server_id) {
+        // Build the query
+        $query = "INSERT INTO `server_addon` ";
+        $query .="(`server_id`, `addon_id`) ";
+        $query .="VALUES ";
+        $query .="('{$addon_id}', '{$server_id}')";
+        
+        // Run the query
+        $result = $this->databaseConnection->query($query);
+        
+        // Return the result
+        if ($result){
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+
+    public function updateAddonInDatabase($addon){
+        // @TODO use addon hashes to see if there's a changed version
+    }
 }
