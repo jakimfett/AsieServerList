@@ -26,3 +26,7 @@ tr td.motd,tr th.motd {
     display: none;
 }
 
+.right{
+    float: right;
+    text-align: right;
+}

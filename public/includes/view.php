@@ -26,22 +26,44 @@
                             <?php endif; ?>
                         </td>
                         <td class="motd">
-                            <?php echo $stats->motd; ?> <code><?php echo $server->ip; ?></code>
+                            <?php echo $stats->motd; ?> <code><?php echo $server->ip; ?></code><span class="right"><a href="<?php echo $server->asie_ip; ?>launcher.jar">Get launcher</a></span>
                         </td>
                         <td>
                             <?php printf('%u/%u', $stats->online_players, $stats->max_players); ?>
                         </td>
                     </tr>
-                    <tr id="<?php echo $servername; ?>-mods" class="hidden">
-                        <td></td>
-                        <td colspan="2">
-                            <?php if (isset($server->mods)) : ?>
-                                <?php foreach ($server->mods as $key => $value) : ?>
-                                    <?php echo $key . ' version ' . $value . '<br/>';?>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
+                    <?php if (isset($server->mods)) : ?>
+                        <tr id="<?php echo $servername; ?>-mods" class="server-row hidden">
+                            <td></td>
+                            <td colspan="2">
+                                <table>
+                                    <tr>
+                                        <td>
+
+                                            <?php $count = 0; ?>
+                                            <?php foreach ($server->mods as $value) : ?>
+                                                <?php echo $value->name . ' version ' . $value->version . '<br/>'; ?>
+                                                <?php $count++; ?>
+                                                <?php if ($count >= 6): break;
+                                                endif; ?>
+                                            <?php endforeach; ?>
+                                        </td>
+                                        <td>
+
+                                            <?php $count = 0; ?>
+                                            <?php foreach ($server->plugins as $value) : ?>
+                                                <?php echo $value->name . ' version ' . $value->version . '<br/>'; ?>
+                                                <?php $count++; ?>
+                                                <?php if ($count >= 6): break;
+                                                endif; ?>
+                                            <?php endforeach; ?>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                     <?php unset($stats); ?>
                 <?php endforeach; ?>
             </tbody>

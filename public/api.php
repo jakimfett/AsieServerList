@@ -15,7 +15,7 @@ if (isset($_POST['url']) OR isset($_GET['debug'])) {
     
     // If the debug flag is passed in, set dummy data
     if (isset($_GET['debug']) AND !isset($_POST['url'])){
-        $_POST['url'] = 'http://mc.picraft.com:8000/';
+        $_POST['url'] = 'http://mc.picraft.com:8020/';
     }
     
     // Retrieve the server data from the POST'ed URL
@@ -23,7 +23,7 @@ if (isset($_POST['url']) OR isset($_GET['debug'])) {
     
     // If $server_info isn't false, attempt to add or update the server in the database
     if ($server_info){
-        
+        $server_info->asie_ip = $_POST['url'];
         // Instantiate the API object
         $api = new api();
         

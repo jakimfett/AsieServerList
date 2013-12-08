@@ -51,7 +51,8 @@ class api extends database {
         // Get hashes of the mod and plugin lists
         // @TODO when player counts are added to the server info, remove before hashing
         $hash = database::hashObject($server_info);
-
+        
+        
         // Returns false if the server isn't in the database already
         $server_in_database = $this->serverInDatabase($server_info->id, $server_info->ip);
 
@@ -61,7 +62,7 @@ class api extends database {
             $server_from_database = $server_in_database->fetch_assoc();
 
             // Check to see if any of the information has changed
-            if ($hash !== $server_from_database['hash']) {
+            if ($hash !== $server_from_database['hash'] OR isset($_GET['debug'])) {
                 // Update everything
                 // Set the local variable so addons get updated
                 $this->addonsChanged = TRUE;
@@ -69,7 +70,7 @@ class api extends database {
 
                 // Start building the query
                 $query = "UPDATE `server` SET ";
-                $query .="`server_id`='{$server_info->id}', `name`='{$server_info->name}', `description`='{$server_info->description}'";
+                $query .="`server_id`='{$server_info->id}', `asie_ip`='{$server_info->asie_ip}', `name`='{$server_info->name}', `description`='{$server_info->description}'";
                 $query .= ", `owner`='{$server_info->owner}', `website`='{$server_info->website}', `hash`='$hash'";
                 // Close out the query with the unique identifiers
                 $query .="WHERE `id`='{$server_from_database['id']}' AND `ip`='{$server_from_database['ip']}'";
@@ -86,9 +87,9 @@ class api extends database {
 
             // Start building the query
             $query = "INSERT INTO `server` ";
-            $query .="(`server_id`, `ip`, `name`, `description`, `owner`, `website`, `hash`) ";
+            $query .="(`server_id`, `ip`, `asie_ip`, `name`, `description`, `owner`, `website`, `hash`) ";
             $query .="VALUES ";
-            $query .="('{$server_info->id}', '{$server_info->ip}', '{$server_info->name}', '{$server_info->description}', ";
+            $query .="('{$server_info->id}', '{$server_info->ip}', '{$server_info->asie_ip}', '{$server_info->name}', '{$server_info->description}', ";
             $query .="'{$server_info->owner}', '{$server_info->website}', '{$hash}' )";
         }
 
@@ -123,7 +124,7 @@ class api extends database {
 
         // Load the masterlist with data
         $master_list['servers'] = $this->getAllServerData();
-
+        
         // Verify that the data was fetched
         if ($master_list['servers']) {
             // Write the masterlist to the JSON file       
@@ -158,6 +159,14 @@ class api extends database {
             // Usiung the combined mods/plugins array, do a double foreach
             foreach ($server_addons as $server_addon_list){
                 foreach ($server_addon_list as $addon) {
+                    if (!isset($addon->version)){
+                        $addon->version = 0;
+                    }
+                    if (!isset($addon->id) AND isset($addon->name)){
+                        $addon->id = strtolower(preg_replace('/\s+/', '',$addon->name));
+                    } elseif (!isset($addon->id) AND isset($addon->type)){
+                        $addon->id = $addon->name =strtolower(preg_replace('/\s+/', '',$addon->type));
+                    }
                     // Check to see if the addon is in the database
                     $addon_unique = $this->addonInDatabase($addon->id, $addon->version);
 
