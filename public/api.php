@@ -10,7 +10,7 @@ if (isset($_POST['url']) OR isset($_GET['debug'])) {
     
     // Include the constants and API class
     require_once '../protected/config.php';
-    require_once 'includes/classes/class.api.php';
+    require_once '../protected/includes/classes/class.api.php';
     
     
     // If the debug flag is passed in, set dummy data
@@ -52,7 +52,7 @@ if (isset($_POST['url']) OR isset($_GET['debug'])) {
     if (in_array($_GET['masterlist'], unserialize(API_KEYS))) {
         
         // Include the api class
-        require_once 'includes/classes/class.api.php';
+        require_once '../protected/includes/classes/class.api.php';
         
         // Instantiate the api class
         $api = new api();
