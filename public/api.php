@@ -15,7 +15,7 @@ if (isset($_POST['url']) OR isset($_GET['debug'])) {
     
     // If the debug flag is passed in, set dummy data
     if (isset($_GET['debug']) AND !isset($_POST['url'])){
-        $_POST['url'] = 'http://mc.picraft.com:8020/';
+        $_POST['url'] = 'http://mc.picraft.com:8030/';
     }
     
     // Retrieve the server data from the POST'ed URL
