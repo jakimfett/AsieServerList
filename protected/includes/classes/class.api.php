@@ -47,12 +47,12 @@ class api extends database {
      * @return boolean
      */
     public function addOrUpdateServer($server_info) {
-        
+
         // Get hashes of the mod and plugin lists
         // @TODO when player counts are added to the server info, remove before hashing
         $hash = database::hashObject($server_info);
-        
-        
+
+
         // Returns false if the server isn't in the database already
         $server_in_database = $this->serverInDatabase($server_info->id, $server_info->ip);
 
@@ -95,7 +95,7 @@ class api extends database {
 
         if (isset($query)) {
             $result = $this->databaseConnection->query($query);
-            
+
             if ($this->addonsChanged === TRUE) {
                 $this->updateAddons($server_info);
             }
@@ -124,7 +124,7 @@ class api extends database {
 
         // Load the masterlist with data
         $master_list['servers'] = $this->getAllServerData();
-        
+
         // Verify that the data was fetched
         if ($master_list['servers']) {
             // Write the masterlist to the JSON file       
@@ -155,17 +155,17 @@ class api extends database {
 
             // Putting the mods and plugins into a single addons array
             $server_addons = array($server_info->mods, $server_info->plugins);
-            
+
             // Usiung the combined mods/plugins array, do a double foreach
-            foreach ($server_addons as $server_addon_list){
+            foreach ($server_addons as $server_addon_list) {
                 foreach ($server_addon_list as $addon) {
-                    if (!isset($addon->version)){
+                    if (!isset($addon->version)) {
                         $addon->version = 0;
                     }
-                    if (!isset($addon->id) AND isset($addon->name)){
-                        $addon->id = strtolower(preg_replace('/\s+/', '',$addon->name));
-                    } elseif (!isset($addon->id) AND isset($addon->type)){
-                        $addon->id = $addon->name =strtolower(preg_replace('/\s+/', '',$addon->type));
+                    if (!isset($addon->id) AND isset($addon->name)) {
+                        $addon->id = strtolower(preg_replace('/\s+/', '', $addon->name));
+                    } elseif (!isset($addon->id) AND isset($addon->type)) {
+                        $addon->id = $addon->name = strtolower(preg_replace('/\s+/', '', $addon->type));
                     }
                     // Check to see if the addon is in the database
                     $addon_unique = $this->addonInDatabase($addon->id, $addon->version);
@@ -195,11 +195,6 @@ class api extends database {
                     }
                 }
             }
-        } else {
-            
         }
     }
-
 }
-
-?>
