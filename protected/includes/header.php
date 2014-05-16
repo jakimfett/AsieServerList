@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Minecraft Status</title>
+        <title>AsiePlatform | Server Status</title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
