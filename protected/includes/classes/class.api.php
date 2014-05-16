@@ -70,7 +70,7 @@ class api extends database {
 
                 // Start building the query
                 $query = "UPDATE `server` SET ";
-                $query .="`server_id`='{$server_info->id}', `asie_ip`='{$server_info->asie_ip}', `name`='{$server_info->name}', `description`='{$server_info->description}'";
+                $query .="`server_id`='{$server_info->id}', `asie_url`='{$server_info->asie_url}', `name`='{$server_info->name}', `description`='{$server_info->description}'";
                 $query .= ", `owner`='{$server_info->owner}', `website`='{$server_info->website}', `hash`='$hash'";
                 // Close out the query with the unique identifiers
                 $query .="WHERE `id`='{$server_from_database['id']}' AND `ip`='{$server_from_database['ip']}'";
@@ -87,9 +87,9 @@ class api extends database {
 
             // Start building the query
             $query = "INSERT INTO `server` ";
-            $query .="(`server_id`, `ip`, `asie_ip`, `name`, `description`, `owner`, `website`, `hash`) ";
+            $query .="(`server_id`, `ip`, `asie_url`, `name`, `description`, `owner`, `website`, `hash`) ";
             $query .="VALUES ";
-            $query .="('{$server_info->id}', '{$server_info->ip}', '{$server_info->asie_ip}', '{$server_info->name}', '{$server_info->description}', ";
+            $query .="('{$server_info->id}', '{$server_info->ip}', '{$server_info->asie_url}', '{$server_info->name}', '{$server_info->description}', ";
             $query .="'{$server_info->owner}', '{$server_info->website}', '{$hash}' )";
         }
 

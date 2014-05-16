@@ -19,7 +19,7 @@ for ($i = $bookmark; $i <= $bookmark + $per_page; $i ++) {
     $server_array = array_slice($data['servers'], $i, 1);
     $single_server = array_shift($server_array);
 
-    if ($utility->checkUrlResolves($single_server['asie_ip'])) {
+    if ($utility->checkUrlResolves($single_server['asie_url'])) {
         // Load server data into the servers array for display
 
         foreach ($single_server as $key => $value) {

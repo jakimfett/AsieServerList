@@ -25,7 +25,7 @@
                             <?php endif; ?>
                         </td>
                         <td class="motd">
-                            <?php echo $stats->motd; ?> <code><?php echo $server['ip']; ?></code><span class="right"><a href="<?php echo $server['asie_ip']; ?>launcher.jar">Get launcher</a></span>
+                            <?php echo $stats->motd; ?> <code><?php echo $server['ip']; ?></code><span class="right"><a href="<?php echo $server['asie_url']; ?>launcher.jar">Get launcher</a></span>
                         </td>
                         <td>
                             <?php printf('%u/%u', $stats->online_players, $stats->max_players); ?>

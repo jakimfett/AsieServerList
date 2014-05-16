@@ -23,7 +23,7 @@ if (isset($_POST['url']) OR isset($_GET['debug'])) {
     
     // If $server_info isn't false, attempt to add or update the server in the database
     if ($server_info){
-        $server_info->asie_ip = $_POST['url'];
+        $server_info->asie_url = $_POST['url'];
         // Instantiate the API object
         $api = new api();
         
