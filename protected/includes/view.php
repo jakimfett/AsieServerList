@@ -1,7 +1,6 @@
 <div class="container">
     <div class="row" style="margin:15px 0;">
-        <h1><?php echo $data->name; ?></h1>
-        <p><?php echo $data->description; ?></p>
+        <h1><img src="AsiePlatformLogo.png"/> AsiePlatform Serverlist</h1>
     </div>
     <div class="row">
         <table class="table table-bordered table-striped">
