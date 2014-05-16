@@ -1,0 +1,32 @@
+/* 
+    Document   : style
+    Created on : Dec 5, 2013, 11:39:20 AM
+    Author     : jakimfett
+    Description:
+        Main CSS file for the AsieLauncher ServerList
+*/
+
+root { 
+    display: block;
+}
+
+tr td,tr th {
+    text-align:center !important
+}
+
+tr td.motd,tr th.motd {
+    text-align:left !important;
+}
+
+.status{
+    width:50px;
+}
+
+.hidden {
+    display: none;
+}
+
+.right{
+    float: right;
+    text-align: right;
+}
