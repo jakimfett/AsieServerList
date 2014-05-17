@@ -11,7 +11,7 @@ class database {
 
     function __construct() {
 
-        $this->databaseConnection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_TABLE);
+        $this->databaseConnection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB);
 
         if (isset($this->databaseConnection->connect_error)) {
             die('Can\'t connect to server');

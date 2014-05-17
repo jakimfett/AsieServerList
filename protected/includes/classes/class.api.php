@@ -16,7 +16,7 @@ class api extends database {
         $this->addonsChanged = false;
 
         // Initiate the database connection
-        $this->databaseConnection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_TABLE);
+        $this->databaseConnection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB);
 
         if (isset($database->connect_error)) {
             die('Can\'t connect to server');
