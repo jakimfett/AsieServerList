@@ -191,11 +191,11 @@ class database {
         foreach ($addon as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $value_key => $value_value) {
-                    $value[$value_key] = mysql_real_escape_string($value_value);
+                    $value[$value_key] = $this->databaseConnection->real_escape_string($value_value);
                 }
                 $addon->$key = $value;
             } else {
-                $addon->$key = mysql_real_escape_string($value);
+                $addon->$key = $this->databaseConnection->real_escape_string($value);
             }
         }
         if(isset($addon->a)){
