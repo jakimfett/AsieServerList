@@ -9,6 +9,7 @@
                     <th class="status">Status</th>
                     <th class="motd">Server</th>
                     <th>Players</th>
+                    <th>More</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,30 +31,43 @@
                         <td>
                             <?php printf('%u/%u', $stats->online_players, $stats->max_players); ?>
                         </td>
+                        <td>
+                            <span class="badge badge-success"><i class="icon-plus icon-white"></i></span>
+                        </td>
                     </tr>
-                    <?php if (isset($server['mods'])) : ?>
+                    <?php if (isset($server['mods']) || isset($server['plugins'])) : ?>
                         <tr id="<?php echo $servername; ?>-mods" class="server-row hidden">
                             <td></td>
                             <td colspan="2">
                                 <table>
                                     <tr>
                                         <td>
-                                            <?php $count = 0; ?>
-                                            <?php foreach ($server['mods'] as $name => $version) : ?>
-                                                <?php echo $name . ' version ' . $version . '<br/>'; ?>
-                                                <?php $count++; ?>
-                                                <?php if ($count >= 6): break;
-                                                endif; ?>
-                                            <?php endforeach; ?>
+                                            <?php if (isset($server['mods'])) : ?>
+                                                <?php $count = 0; ?>
+                                                <?php foreach ($server['mods'] as $name => $version) : ?>
+                                                    <?php echo $name . ' version ' . $version . '<br/>'; ?>
+                                                    <?php $count++; ?>
+                                                    <?php if ($count >= 6): break;
+                                                    endif;
+                                                    ?>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                (No mods found for this server)
+                                            <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php $count = 0; ?>
-                                            <?php foreach ($server['plugins'] as $name => $version) : ?>
-                                                <?php echo $name . ' version ' . $version . '<br/>'; ?>
-                                                <?php $count++; ?>
-                                                <?php if ($count >= 6): break;
-                                                endif; ?>
-                                            <?php endforeach; ?>
+                                            <?php if (isset($server['plugins'])) : ?>
+                                                <?php $count = 0; ?>
+                                                <?php foreach ($server['plugins'] as $name => $version) : ?>
+                                                    <?php echo $name . ' version ' . $version . '<br/>'; ?>
+                                                    <?php $count++; ?>
+                                                    <?php if ($count >= 6): break;
+                                                    endif;
+                                                    ?>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                (No plugins found for this server)
+                                            <?php endif; ?>
                                         </td>
                                         <td>
                                             (playernames list will go here)
